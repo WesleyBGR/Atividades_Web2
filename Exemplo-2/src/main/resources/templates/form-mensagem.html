@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<h2>Enviar uma mensagem preenchendo os formularios</h2>
+	<form action="salvarMensagem" th:object="${mensagem}" method="POST">
+		Seu nome: <br>
+		<input type="text" th:field="*{nome}"><br>
+		Seu telefone: <br>
+		<input type="text" th:field="*{telefone}"><br>
+		Seu e-mail: <br>
+		<input type="text" th:field="*{email}"><br>
+		Dseja receber nossas novidades:<br>
+		<input type="radio">Sim<input type="radio">Não<br>
+		<textarea rows="4" cols="30"></textarea>
+		<br>
+		<button type="submit">Enviar</button>
+	</form>
+</body>
+</html>
