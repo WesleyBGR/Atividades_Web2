@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -21,8 +22,41 @@ public class ContatoController {
 	
 	@PostMapping("salvarContato")
 	public String salvarContato(Contato contato) {
+		this.contatos.remove(contato);
 		this.contatos.add(contato);
 		System.out.println(contato);
-		return "redirect:/exibirContato";
+		return "redirect:/listarContatos";
+	}
+	
+	@GetMapping("/listarContatos")
+	public String listarContatos(Model model) {
+		model.addAttribute("lista", contatos);
+		return "contatos-list";
+	}
+	
+	@GetMapping("/removerContato")
+	public String removerContato(String email) {
+		Contato contatoParaRemover = null;
+		for(Contato cont : this.contatos) {
+			if(cont.getEmail().equals(email)) {
+				contatoParaRemover = cont;
+			}
+		}
+		if(contatoParaRemover != null) {
+			this.contatos.remove(contatoParaRemover);
+		}
+		return "redirect:/listarContatos";
+	}
+	
+	@GetMapping("/editarContato")
+	public String editarContato(String email, Model model) {
+		Contato contatoParaEditar = null;
+		for(Contato cont : this.contatos) {
+			if(cont.getEmail().equals(email)) {
+				contatoParaEditar = cont;
+			}
+		}
+		model.addAttribute("contato", contatoParaEditar);
+		return "contatos-form";
 	}
 }
