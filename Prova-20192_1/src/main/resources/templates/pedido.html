@@ -69,7 +69,7 @@
 							<td th:text="${#numbers.formatCurrency(ped.lanche.valor * ped.quantidade)}"></td>
 							<td th:text="${#dates.format(ped.dataPedido, 'dd-MMM-yyyy hh:mm')}"></td>
 							<td th:text="${#dates.format(ped.dataPagamento, 'dd-MMM-yyyy hh:mm')}"></td>
-							<td><a th:if="${ped.dataPagamento == null}"
+							<td><a th:if="${ped.dataPagamento == null}" 
 								th:href="|/pagar?id=${ped.id}|">Pagar</a></td>
 						</tr>
 

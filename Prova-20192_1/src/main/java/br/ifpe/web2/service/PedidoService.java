@@ -30,17 +30,23 @@ public class PedidoService {
 	}
 	
 	public void registrarPagamento(Integer id) {
+		
 		Pedido pedido = this.pedidoDAO.getOne(id);	
+		pedido.getAluno().setDivida(0);
 		pedido.setDataPagamento(new Date());
 		this.pedidoDAO.save(pedido);
+		
+	
 	}
 	
 	
 	public void registrarPedido(Pedido pedido) {
+		
 		if (pedido.getQuantidade() <= pedido.getLanche().getQuantidadeDisponivel() && pedido.getAluno().getDivida() <= 0 ) {
+			pedido.setDataPagamento(pedido.getDataPedido());
 			Lanche lanche = pedido.getLanche();
 			Aluno aluno = pedido.getAluno();
-			aluno.setDivida(+lanche.getValor());
+			aluno.setDivida((lanche.getValor()*pedido.getQuantidade()));
 			lanche.setQuantidadeDisponivel(pedido.getLanche().getQuantidadeDisponivel()
 					- pedido.getQuantidade());
 			pedido.setDataPedido(new Date());
